@@ -4,7 +4,6 @@
  */
 package Gudang;
 
-import Gudang.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -185,7 +184,12 @@ public class MainGudang extends javax.swing.JFrame {
        Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", null);
        Menu menuBarang = new Menu(iconBarang, false, null, "Barang", null, menuRequestMasuk, menuRequestKeluar);
        Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
-       Menu menuLogout = new Menu(iconLogout, false, null, "Logout", null);
+       Menu menuLogout = new Menu(iconLogout, false, null, "Logout", new ActionListener(){
+           @Override
+            public void actionPerformed(ActionEvent e){
+                dispose();
+            }
+       });
        
        addMenu(menuDashboard, menuBarang, menuLaporan, menuLogout);
     }

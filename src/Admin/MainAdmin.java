@@ -192,7 +192,12 @@ public class MainAdmin extends javax.swing.JFrame {
        Menu menuRequest = new Menu(iconBarang, false, null, "Data Request", null, menuRequestMasuk, menuRequestKeluar);
        Menu menuTransaksi = new Menu(iconTransaksi, false, null, "Transaksi", null);
        Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
-       Menu menuLogout = new Menu(iconLogout, false, null, "Logout", null);
+       Menu menuLogout = new Menu(iconLogout, false, null, "Logout", new ActionListener(){
+           @Override
+            public void actionPerformed(ActionEvent e){
+                dispose();
+            }
+       });
        
        addMenu(menuDashboard, menuBarang, menuRequest, menuTransaksi, menuLaporan, menuLogout);
     }

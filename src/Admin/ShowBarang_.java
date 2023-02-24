@@ -4,17 +4,85 @@
  */
 package Admin;
 
+import Database.Koneksi;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nuew
  */
 public class ShowBarang_ extends javax.swing.JPanel {
+    
+    public final Connection conn = new Koneksi().connect();
 
+    private DefaultTableModel tabmode;
+    
+    //    
+    public void noTable(){
+        int Baris = tabmode.getRowCount();
+        for (int a=0; a<Baris; a++)
+        {
+            String nomor = String.valueOf(a+1);
+            tabmode.setValueAt(nomor,a,0);
+        }
+    }
+    
+    public void dataShowBarang(){
+        Object[] Baris = {"No", "Kode Barang", "Nama Barang", "Jumlah", "Kategori"};
+        tabmode = new DefaultTableModel(null, Baris);
+        TableShow.setModel(tabmode);
+        String sql = "SELECT * FROM data_barang";
+        try{
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            while (hasil.next()){
+                String id = hasil.getString("id");
+                String nama = hasil.getString("nama");
+                String jumlah = hasil.getString("jumlah");
+                String kategori = hasil.getString("kategori");
+                String[] data = {"",id,nama,jumlah,kategori};
+                tabmode.addRow(data);
+                noTable();
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
+    public void cariBarang(String sql){
+        Object[] Baris = {"No", "Kode Barang", "Nama Barang", "Jumlah", "Kategori"};
+        tabmode = new DefaultTableModel(null, Baris);
+        TableShow.setModel(tabmode);
+        int brs = TableShow.getRowCount();
+        for (int i = 0; 1 < brs; i++){
+            tabmode.removeRow(1);
+        }
+        try{
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            while (hasil.next()){
+                String id = hasil.getString("id");
+                String nama = hasil.getString("nama");
+                String jumlah = hasil.getString("jumlah");
+                String kategori = hasil.getString("kategori");
+                String[] data = {"",id,nama,kategori,jumlah,kategori};
+                tabmode.addRow(data);
+                noTable();
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
+    
     /**
      * Creates new form ShowBarang_
      */
     public ShowBarang_() {
         initComponents();
+        dataShowBarang();
     }
 
     /**
@@ -31,8 +99,9 @@ public class ShowBarang_ extends javax.swing.JPanel {
         ScrollShow = new javax.swing.JScrollPane();
         TableShow = new javax.swing.JTable();
         Title = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        editBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
+        searchInput = new javax.swing.JTextField();
 
         setLayout(new java.awt.CardLayout());
 
@@ -40,36 +109,47 @@ public class ShowBarang_ extends javax.swing.JPanel {
 
         TableShow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "BR001", "Kabel",  new Integer(25), "-", null},
-                { new Integer(2), "BR002", "Ban",  new Integer(6), "-", null},
-                { new Integer(3), "BR003", "Perkakas",  new Integer(3), "-", null},
-                { new Integer(4), "BR004", "Mobil",  new Integer(2), "-", null},
-                { new Integer(5), "BR005", "Helmet",  new Integer(15), null, null}
+
             },
             new String [] {
-                "No", "ID", "Nama", "Jumlah", "Kategori", "Aksi"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         ScrollShow.setViewportView(TableShow);
 
         Title.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         Title.setText("Data Barang");
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_example_20px.png"))); // NOI18N
-        jButton2.setText("Edit Data");
+        editBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_example_20px.png"))); // NOI18N
+        editBtn.setText("Edit Data");
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_add_new_20px.png"))); // NOI18N
-        jButton3.setText("Tambah Data");
+        addBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_add_new_20px.png"))); // NOI18N
+        addBtn.setText("Tambah Data");
+
+        searchInput.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        searchInput.setText("Cari Barang...");
+        searchInput.setMinimumSize(new java.awt.Dimension(6, 29));
+        searchInput.setPreferredSize(new java.awt.Dimension(74, 29));
+        searchInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchInputFocusLost(evt);
+            }
+        });
+        searchInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchInputActionPerformed(evt);
+            }
+        });
+        searchInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchInputKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout ContentShowLayout = new javax.swing.GroupLayout(ContentShow);
         ContentShow.setLayout(ContentShowLayout);
@@ -78,16 +158,19 @@ public class ShowBarang_ extends javax.swing.JPanel {
             .addGroup(ContentShowLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
+                    .addGroup(ContentShowLayout.createSequentialGroup()
+                        .addComponent(Title)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(ContentShowLayout.createSequentialGroup()
                         .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Title)
+                            .addComponent(ScrollShow)
                             .addGroup(ContentShowLayout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(editBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
+                                .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         ContentShowLayout.setVerticalGroup(
             ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,10 +179,11 @@ public class ShowBarang_ extends javax.swing.JPanel {
                 .addComponent(Title)
                 .addGap(18, 18, 18)
                 .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -108,6 +192,29 @@ public class ShowBarang_ extends javax.swing.JPanel {
         add(PanelShow, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchInputActionPerformed
+
+    private void searchInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchInputFocusLost
+        String cari = searchInput.getText();
+        if(cari.equals("Cari Barang...") || cari.equals("")){
+            searchInput.setText("Cari Barang...");
+        }
+    }//GEN-LAST:event_searchInputFocusLost
+
+    private void searchInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchInputFocusGained
+        String cari = searchInput.getText();
+        if(cari.equals("Cari Barang...")){
+            searchInput.setText("");
+        }
+    }//GEN-LAST:event_searchInputFocusGained
+
+    private void searchInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchInputKeyTyped
+        String sqlPencarian = "SELECT * FROM data_barang WHERE id LIKE '%"+searchInput.getText()+"%' OR nama LIKE '%"+searchInput.getText()+"%'";
+        cariBarang(sqlPencarian);
+    }//GEN-LAST:event_searchInputKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentShow;
@@ -115,7 +222,8 @@ public class ShowBarang_ extends javax.swing.JPanel {
     private javax.swing.JScrollPane ScrollShow;
     private javax.swing.JTable TableShow;
     private javax.swing.JLabel Title;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton addBtn;
+    private javax.swing.JButton editBtn;
+    private javax.swing.JTextField searchInput;
     // End of variables declaration//GEN-END:variables
 }
