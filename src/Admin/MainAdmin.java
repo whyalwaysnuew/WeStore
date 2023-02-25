@@ -168,6 +168,7 @@ public class MainAdmin extends javax.swing.JFrame {
        ImageIcon iconBarangKeluar = new ImageIcon(getClass().getResource("/icon/icons8_unpacking_24px.png"));
        ImageIcon iconRequestKeluar = new ImageIcon(getClass().getResource("/icon/icons8_Circled_Up_Right_24px.png"));
        ImageIcon iconRequestMasuk = new ImageIcon(getClass().getResource("/icon/icons8_Circled_Down_Left_Arrow_24px.png"));
+       ImageIcon iconRequest = new ImageIcon(getClass().getResource("/icon/icons8_data_pending_24px.png"));
        ImageIcon iconBarangShow = new ImageIcon(getClass().getResource("/icon/icons8_tiles_24px.png"));
        ImageIcon iconTransaksi = new ImageIcon(getClass().getResource("/icon/icons8_Banknotes_24px.png"));
        ImageIcon iconLaporan = new ImageIcon(getClass().getResource("/icon/icons8_google_docs_24px.png"));
@@ -175,8 +176,6 @@ public class MainAdmin extends javax.swing.JFrame {
        
        Menu menuBarangMasuk = new Menu(null, true, iconBarangMasuk, "Barang Masuk", null);
        Menu menuBarangKeluar = new Menu(null, true, iconBarangKeluar, "Barang Keluar", null);
-       Menu menuRequestKeluar = new Menu(null, true, iconRequestKeluar, "Request Keluar", null);
-       Menu menuRequestMasuk = new Menu(null, true, iconRequestMasuk, "Request Masuk", null);
        Menu menuBarangShow = new Menu(null, true, iconBarangShow, "Data Barang", new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent e){
@@ -187,10 +186,37 @@ public class MainAdmin extends javax.swing.JFrame {
            }
        });
        
-       Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", null);
+       Menu menuRequestKeluar = new Menu(null, true, iconRequestKeluar, "Request Keluar", new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new RequestKeluar_());
+                Content.repaint();
+                Content.revalidate();
+           }
+       });
+       
+       Menu menuRequestMasuk = new Menu(null, true, iconRequestMasuk, "Request Masuk", new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new RequestMasuk_());
+                Content.repaint();
+                Content.revalidate();
+           }
+       });
+       
+       Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", new ActionListener(){
+           @Override
+            public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new Dashboard());
+                Content.repaint();
+                Content.revalidate();
+            }
+       });
        Menu menuBarang = new Menu(iconBarang, false, null, "Barang", null,menuBarangShow, menuBarangMasuk, menuBarangKeluar);
-       Menu menuRequest = new Menu(iconBarang, false, null, "Data Request", null, menuRequestMasuk, menuRequestKeluar);
-       Menu menuTransaksi = new Menu(iconTransaksi, false, null, "Transaksi", null);
+       Menu menuRequest = new Menu(iconRequest, false, null, "Data Request", null, menuRequestMasuk, menuRequestKeluar);
        Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
        Menu menuLogout = new Menu(iconLogout, false, null, "Logout", new ActionListener(){
            @Override
@@ -199,7 +225,7 @@ public class MainAdmin extends javax.swing.JFrame {
             }
        });
        
-       addMenu(menuDashboard, menuBarang, menuRequest, menuTransaksi, menuLaporan, menuLogout);
+       addMenu(menuDashboard, menuBarang, menuRequest, menuLaporan, menuLogout);
     }
     
     private void addMenu(Menu... menu){
