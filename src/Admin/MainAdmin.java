@@ -206,15 +206,7 @@ public class MainAdmin extends javax.swing.JFrame {
            }
        });
        
-       Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", new ActionListener(){
-           @Override
-            public void actionPerformed(ActionEvent e){
-                Content.removeAll();
-                Content.add(new Dashboard());
-                Content.repaint();
-                Content.revalidate();
-            }
-       });
+       Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", null);
        Menu menuBarang = new Menu(iconBarang, false, null, "Barang", null,menuBarangShow, menuBarangMasuk, menuBarangKeluar);
        Menu menuRequest = new Menu(iconRequest, false, null, "Data Request", null, menuRequestMasuk, menuRequestKeluar);
        Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
