@@ -50,7 +50,7 @@ public class RequestMasuk_ extends javax.swing.JPanel {
                 String status = hasil.getString("status");
                 String keterangan = hasil.getString("keterangan");
                 String timestamp = hasil.getString("created_at");
-                String[] data = {"","REQ"+id, kode_barang, nama,jumlah,kategori, status, keterangan, timestamp};
+                String[] data = {"",id, kode_barang, nama,jumlah,kategori, status, keterangan, timestamp};
                 tabmode.addRow(data);
                 noTable();
             }
@@ -88,6 +88,7 @@ public class RequestMasuk_ extends javax.swing.JPanel {
         }
     }
 
+    
     /**
      * Creates new form RequestMasuk_
      */
@@ -241,46 +242,90 @@ public class RequestMasuk_ extends javax.swing.JPanel {
 
     private void terimaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terimaBtnActionPerformed
         int row = TableReqMasuk.getSelectedRow();
-        String id = tabmode.getValueAt(row, 0).toString();
+        String id = tabmode.getValueAt(row, 1).toString();
+        String requestmasuk_kode = tabmode.getValueAt(row, 2).toString();
+        String requestmasuk_nama = tabmode.getValueAt(row, 3).toString();
+        String requestmasuk_jumlah = tabmode.getValueAt(row, 4).toString();
+        String requestmasuk_kategori = tabmode.getValueAt(row, 5).toString();
         
         int ok = JOptionPane.showConfirmDialog(null, " Apakah Anda Yakin Ingin "
-            + "Terima Request Masuk?", "Request masuk", JOptionPane.YES_NO_OPTION);
+            + "Terima Request Masuk "+ requestmasuk_kode +"?", "Request masuk", JOptionPane.YES_NO_OPTION);
         
         if(ok == 0){
+            String queryBarang = "SELECT id, jumlah FROM data_barang";
             String sql = "UPDATE data_masuk SET status='approved' WHERE id='" + id + "'";
+            String insertBarang = "INSERT INTO data_barang (id,nama,jumlah,kategori)  VALUES('"
+                    +requestmasuk_kode+"','"
+                    +requestmasuk_nama+"','"
+                    +requestmasuk_jumlah+"','"
+                    +requestmasuk_kategori+"');";
             try{
-                java.sql.PreparedStatement stat = conn.prepareStatement(sql);
-                stat.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Request Masuk telah diterima");
-                this.removeAll();
-                this.add(new RequestMasuk_());
-                this.repaint();
-                this.revalidate();
+                java.sql.Statement insert = conn.createStatement();
+                
+                java.sql.Statement detail = conn.createStatement();
+                ResultSet databarang = detail.executeQuery(queryBarang);
+                
+                while(databarang.next()){
+                    String databarang_id = databarang.getString("id");
+                    String databarang_jumlah = databarang.getString("jumlah");
+                    
+                    System.out.println(requestmasuk_kode);
+                    System.out.println(databarang_id);
+                        if(requestmasuk_kode.equals(databarang_id)){
+                            java.sql.Statement update = conn.createStatement();
+                            
+                            String total = databarang_jumlah + requestmasuk_jumlah;
+                            String updatequery = "UPDATE data_barang SET jumlah='"+total+"' WHERE id='" + requestmasuk_kode + "'";
+                            try{
+                                update.executeUpdate(updatequery);
+                                insert.executeUpdate(sql);
+                                JOptionPane.showMessageDialog(null, "Data Barang " +requestmasuk_kode+ " telah diperbarui!");
+                                JOptionPane.showMessageDialog(null, "Request Masuk "+ requestmasuk_kode +" telah diterima");
+                            } catch(Exception error){
+                                JOptionPane.showMessageDialog(null, "Data Barang " +requestmasuk_kode+ " gagal diperbarui! \n"+error);
+                            }
+                        } else {
+                            try{
+                                insert.executeUpdate(insertBarang);
+                                insert.executeUpdate(sql);
+                                JOptionPane.showMessageDialog(null, "Berhasil Input Data Barang " +requestmasuk_kode);
+                                JOptionPane.showMessageDialog(null, "Request Masuk "+ requestmasuk_kode +" telah diterima");
+                            } catch(Exception error){
+                                JOptionPane.showMessageDialog(null, "Gagal Input Data Barang " +requestmasuk_kode+ " \n"+error);
+                            }
+                        }
+                    databarang.close();
+                }
             } catch(Exception error){
-                JOptionPane.showMessageDialog(null, "Request Masuk gagal diterima! \n"+error);
+                //                    
             }
         }
+        this.removeAll();
+        this.add(new RequestMasuk_());
+        this.repaint();
+        this.revalidate();
     }//GEN-LAST:event_terimaBtnActionPerformed
 
     private void tolakBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tolakBtnActionPerformed
         int row = TableReqMasuk.getSelectedRow();
-        String id = tabmode.getValueAt(row, 0).toString();
+        String id = tabmode.getValueAt(row, 1).toString();
+        String requestmasuk_kode = tabmode.getValueAt(row, 2).toString();
         
         int ok = JOptionPane.showConfirmDialog(null, " Apakah Anda Yakin Ingin\n"
-            + "Tolak Request Masuk?", "Request Masuk", JOptionPane.YES_NO_OPTION);
+            + "Tolak Request Masuk "+ requestmasuk_kode +"?", "Request Masuk", JOptionPane.YES_NO_OPTION);
         
         if(ok == 0){
             String sql = "UPDATE data_masuk SET status='declined' WHERE id='" + id + "'";
             try{
                 java.sql.PreparedStatement stat = conn.prepareStatement(sql);
                 stat.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Request Masuk telah ditolak");
+                JOptionPane.showMessageDialog(null, "Request Masuk "+ requestmasuk_kode +" telah ditolak");
                 this.removeAll();
                 this.add(new RequestMasuk_());
                 this.repaint();
                 this.revalidate();
             } catch(Exception error){
-                JOptionPane.showMessageDialog(null, "Request Masuk gagal ditolak! \n"+error);
+                JOptionPane.showMessageDialog(null, "Request Masuk "+ requestmasuk_kode +" gagal ditolak! \n"+error);
             }
         }
     }//GEN-LAST:event_tolakBtnActionPerformed
