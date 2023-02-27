@@ -7,6 +7,7 @@ package Admin;
 import Database.Koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +20,16 @@ public class ShowBarang_ extends javax.swing.JPanel {
 
     private DefaultTableModel tabmode;
     
+    public void aktif(){
+        hapusBtn.setEnabled(false);
+        editBtn.setEnabled(false);
+    }
+    
     //    
+    public void getID(String id){
+        String valueId = id;
+    }
+    
     public void noTable(){
         int Baris = tabmode.getRowCount();
         for (int a=0; a<Baris; a++)
@@ -82,6 +92,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
      */
     public ShowBarang_() {
         initComponents();
+        aktif();
         dataShowBarang();
     }
 
@@ -102,6 +113,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
         editBtn = new javax.swing.JButton();
         addBtn = new javax.swing.JButton();
         searchInput = new javax.swing.JTextField();
+        hapusBtn = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -120,13 +132,20 @@ public class ShowBarang_ extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TableShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableShowMouseClicked(evt);
+            }
+        });
         ScrollShow.setViewportView(TableShow);
 
         Title.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         Title.setText("Data Barang");
 
+        editBtn.setBackground(new java.awt.Color(0, 102, 102));
         editBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_example_20px.png"))); // NOI18N
+        editBtn.setForeground(new java.awt.Color(255, 255, 255));
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_create_20px.png"))); // NOI18N
         editBtn.setText("Edit Data");
 
         addBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -156,6 +175,17 @@ public class ShowBarang_ extends javax.swing.JPanel {
             }
         });
 
+        hapusBtn.setBackground(new java.awt.Color(153, 0, 0));
+        hapusBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        hapusBtn.setForeground(new java.awt.Color(255, 255, 255));
+        hapusBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_trash_20px_1.png"))); // NOI18N
+        hapusBtn.setText("Hapus Data");
+        hapusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ContentShowLayout = new javax.swing.GroupLayout(ContentShow);
         ContentShow.setLayout(ContentShowLayout);
         ContentShowLayout.setHorizontalGroup(
@@ -172,7 +202,9 @@ public class ShowBarang_ extends javax.swing.JPanel {
                                 .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(editBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(hapusBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(ScrollShow))
                         .addContainerGap())))
@@ -186,7 +218,8 @@ public class ShowBarang_ extends javax.swing.JPanel {
                 .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(searchInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hapusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ScrollShow, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
@@ -220,6 +253,32 @@ public class ShowBarang_ extends javax.swing.JPanel {
         cariBarang(sqlPencarian);
     }//GEN-LAST:event_searchInputKeyTyped
 
+    private void TableShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableShowMouseClicked
+        hapusBtn.setEnabled(true);
+        editBtn.setEnabled(true);
+    }//GEN-LAST:event_TableShowMouseClicked
+
+    private void hapusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusBtnActionPerformed
+        int row = TableShow.getSelectedRow();
+        String id = tabmode.getValueAt(row, 1).toString();
+        int ok = JOptionPane.showConfirmDialog(null, " Apakah Anda Yakin Ingin "
+                + "Menghapus Data", "Hapus Data", JOptionPane.YES_NO_OPTION);
+        if(ok == 0){
+            String sql = "DELETE FROM data_barang WHERE id = '"+id+"'";            
+            try{
+                java.sql.PreparedStatement stat = conn.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+                this.removeAll();
+                this.add(new ShowBarang_());
+                this.repaint();
+                this.revalidate();
+            } catch(Exception error){
+                JOptionPane.showMessageDialog(null, "Data Gagal Dihapus" + error);                
+            }
+        }
+    }//GEN-LAST:event_hapusBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentShow;
@@ -229,6 +288,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
     private javax.swing.JLabel Title;
     private javax.swing.JButton addBtn;
     private javax.swing.JButton editBtn;
+    private javax.swing.JButton hapusBtn;
     private javax.swing.JTextField searchInput;
     // End of variables declaration//GEN-END:variables
 }

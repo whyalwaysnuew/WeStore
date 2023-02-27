@@ -20,6 +20,7 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
         namaInput.setText(null);
         jumlahInput.setText(null);
         keteranganInput.setText(null);
+        tanggalInput.setDate(null);
     }
 
     /**
@@ -48,9 +49,9 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
         PanelKode = new javax.swing.JPanel();
         kodeLabel = new javax.swing.JLabel();
         kodeInput = new javax.swing.JTextField();
-        PanelJumlah = new javax.swing.JPanel();
-        jumlahLabel = new javax.swing.JLabel();
-        jumlahInput = new javax.swing.JTextField();
+        PanelTanggal = new javax.swing.JPanel();
+        tanggalLabel = new javax.swing.JLabel();
+        tanggalInput = new com.toedter.calendar.JDateChooser();
         PanelKategori = new javax.swing.JPanel();
         kategoriLabel = new javax.swing.JLabel();
         kategoriInput = new javax.swing.JComboBox<>();
@@ -59,6 +60,9 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
         ScrollKeterangan = new javax.swing.JScrollPane();
         keteranganInput = new javax.swing.JTextArea();
         submitBtn = new javax.swing.JButton();
+        PanelJumlah = new javax.swing.JPanel();
+        jumlahLabel = new javax.swing.JLabel();
+        jumlahInput = new javax.swing.JTextField();
 
         setLayout(new java.awt.CardLayout());
 
@@ -127,33 +131,33 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        PanelJumlah.setBackground(new java.awt.Color(255, 255, 255));
+        PanelTanggal.setBackground(new java.awt.Color(255, 255, 255));
 
-        jumlahLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jumlahLabel.setForeground(new java.awt.Color(54, 55, 85));
-        jumlahLabel.setText("Jumlah");
+        tanggalLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tanggalLabel.setForeground(new java.awt.Color(54, 55, 85));
+        tanggalLabel.setText("Tanggal");
 
-        javax.swing.GroupLayout PanelJumlahLayout = new javax.swing.GroupLayout(PanelJumlah);
-        PanelJumlah.setLayout(PanelJumlahLayout);
-        PanelJumlahLayout.setHorizontalGroup(
-            PanelJumlahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelJumlahLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelTanggalLayout = new javax.swing.GroupLayout(PanelTanggal);
+        PanelTanggal.setLayout(PanelTanggalLayout);
+        PanelTanggalLayout.setHorizontalGroup(
+            PanelTanggalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTanggalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelJumlahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelJumlahLayout.createSequentialGroup()
-                        .addComponent(jumlahLabel)
-                        .addGap(0, 356, Short.MAX_VALUE))
-                    .addComponent(jumlahInput))
+                .addGroup(PanelTanggalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelTanggalLayout.createSequentialGroup()
+                        .addComponent(tanggalLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tanggalInput, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        PanelJumlahLayout.setVerticalGroup(
-            PanelJumlahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelJumlahLayout.createSequentialGroup()
+        PanelTanggalLayout.setVerticalGroup(
+            PanelTanggalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelTanggalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jumlahLabel)
+                .addComponent(tanggalLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jumlahInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tanggalInput, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         PanelKategori.setBackground(new java.awt.Color(255, 255, 255));
@@ -175,7 +179,7 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
                     .addGroup(PanelKategoriLayout.createSequentialGroup()
                         .addComponent(kategoriLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(kategoriInput, 0, 405, Short.MAX_VALUE))
+                    .addComponent(kategoriInput, 0, 569, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelKategoriLayout.setVerticalGroup(
@@ -208,7 +212,7 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
                     .addGroup(PanelKeteranganLayout.createSequentialGroup()
                         .addComponent(keteranganLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(ScrollKeterangan))
+                    .addComponent(ScrollKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelKeteranganLayout.setVerticalGroup(
@@ -231,25 +235,56 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
             }
         });
 
+        PanelJumlah.setBackground(new java.awt.Color(255, 255, 255));
+
+        jumlahLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jumlahLabel.setForeground(new java.awt.Color(54, 55, 85));
+        jumlahLabel.setText("Jumlah");
+
+        javax.swing.GroupLayout PanelJumlahLayout = new javax.swing.GroupLayout(PanelJumlah);
+        PanelJumlah.setLayout(PanelJumlahLayout);
+        PanelJumlahLayout.setHorizontalGroup(
+            PanelJumlahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelJumlahLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelJumlahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelJumlahLayout.createSequentialGroup()
+                        .addComponent(jumlahLabel)
+                        .addGap(0, 520, Short.MAX_VALUE))
+                    .addComponent(jumlahInput))
+                .addContainerGap())
+        );
+        PanelJumlahLayout.setVerticalGroup(
+            PanelJumlahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelJumlahLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jumlahLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jumlahInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout ContentRequestLayout = new javax.swing.GroupLayout(ContentRequest);
         ContentRequest.setLayout(ContentRequestLayout);
         ContentRequestLayout.setHorizontalGroup(
             ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentRequestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(PanelKeterangan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(submitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(ContentRequestLayout.createSequentialGroup()
                         .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(PanelKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Title, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PanelNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(PanelKode, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PanelTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PanelKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PanelJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(submitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                            .addComponent(PanelJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 2, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         ContentRequestLayout.setVerticalGroup(
             ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,13 +297,18 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
                     .addComponent(PanelKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(PanelKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(ContentRequestLayout.createSequentialGroup()
+                        .addComponent(PanelKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PanelKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PanelTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))
+                    .addGroup(ContentRequestLayout.createSequentialGroup()
+                        .addComponent(PanelJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         PanelRequest.add(ContentRequest, "card2");
@@ -283,7 +323,7 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
             String jumlah = jumlahInput.getText();
             String kategori = kategoriInput.getSelectedItem().toString();
             String status = "waiting";
-            String date = "2023-02-25";
+            String date = String.valueOf(tanggalInput.getDate());
             String keterangan = keteranganInput.getText();
             
             System.out.println(kode);
@@ -319,6 +359,7 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
     private javax.swing.JPanel PanelKode;
     private javax.swing.JPanel PanelNama;
     private javax.swing.JPanel PanelRequest;
+    private javax.swing.JPanel PanelTanggal;
     private javax.swing.JScrollPane ScrollKeterangan;
     private javax.swing.JLabel Title;
     private javax.swing.JTextField jumlahInput;
@@ -332,5 +373,7 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
     private javax.swing.JTextField namaInput;
     private javax.swing.JLabel namaLabel;
     private javax.swing.JButton submitBtn;
+    private com.toedter.calendar.JDateChooser tanggalInput;
+    private javax.swing.JLabel tanggalLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package Admin;
 import Database.Koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -17,6 +18,11 @@ public class RequestMasuk_ extends javax.swing.JPanel {
     public final Connection conn = new Koneksi().connect();
 
     private DefaultTableModel tabmode;
+    
+    public void aktif(){
+        terimaBtn.setEnabled(false);
+        tolakBtn.setEnabled(false);
+    }
     
     public void noTable(){
         int Baris = tabmode.getRowCount();
@@ -87,6 +93,7 @@ public class RequestMasuk_ extends javax.swing.JPanel {
      */
     public RequestMasuk_() {
         initComponents();
+        aktif();
         dataRequestMasuk();
     }
 
@@ -105,6 +112,8 @@ public class RequestMasuk_ extends javax.swing.JPanel {
         TableReqMasuk = new javax.swing.JTable();
         Title = new javax.swing.JLabel();
         searchInput = new javax.swing.JTextField();
+        terimaBtn = new javax.swing.JButton();
+        tolakBtn = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -123,6 +132,11 @@ public class RequestMasuk_ extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TableReqMasuk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableReqMasukMouseClicked(evt);
+            }
+        });
         ScrollRequest.setViewportView(TableReqMasuk);
 
         Title.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -144,6 +158,28 @@ public class RequestMasuk_ extends javax.swing.JPanel {
             }
         });
 
+        terimaBtn.setBackground(new java.awt.Color(0, 102, 51));
+        terimaBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        terimaBtn.setForeground(new java.awt.Color(255, 255, 255));
+        terimaBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_Checkmark_20px.png"))); // NOI18N
+        terimaBtn.setText("Terima");
+        terimaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                terimaBtnActionPerformed(evt);
+            }
+        });
+
+        tolakBtn.setBackground(new java.awt.Color(153, 0, 0));
+        tolakBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tolakBtn.setForeground(new java.awt.Color(255, 255, 255));
+        tolakBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_cancel_20px.png"))); // NOI18N
+        tolakBtn.setText("Tolak");
+        tolakBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tolakBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ContentRequestLayout = new javax.swing.GroupLayout(ContentRequest);
         ContentRequest.setLayout(ContentRequestLayout);
         ContentRequestLayout.setHorizontalGroup(
@@ -155,8 +191,11 @@ public class RequestMasuk_ extends javax.swing.JPanel {
                     .addGroup(ContentRequestLayout.createSequentialGroup()
                         .addComponent(Title)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentRequestLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(ContentRequestLayout.createSequentialGroup()
+                        .addComponent(terimaBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(tolakBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -165,10 +204,13 @@ public class RequestMasuk_ extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentRequestLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(Title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(ScrollRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(terimaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tolakBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(ScrollRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addGap(108, 108, 108))
         );
 
@@ -197,6 +239,65 @@ public class RequestMasuk_ extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchInputFocusLost
 
+    private void terimaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terimaBtnActionPerformed
+        int row = TableReqMasuk.getSelectedRow();
+        String id = tabmode.getValueAt(row, 0).toString();
+        
+        int ok = JOptionPane.showConfirmDialog(null, " Apakah Anda Yakin Ingin "
+            + "Terima Request Masuk?", "Request masuk", JOptionPane.YES_NO_OPTION);
+        
+        if(ok == 0){
+            String sql = "UPDATE data_masuk SET status='approved' WHERE id='" + id + "'";
+            try{
+                java.sql.PreparedStatement stat = conn.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Request Masuk telah diterima");
+                this.removeAll();
+                this.add(new RequestMasuk_());
+                this.repaint();
+                this.revalidate();
+            } catch(Exception error){
+                JOptionPane.showMessageDialog(null, "Request Masuk gagal diterima! \n"+error);
+            }
+        }
+    }//GEN-LAST:event_terimaBtnActionPerformed
+
+    private void tolakBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tolakBtnActionPerformed
+        int row = TableReqMasuk.getSelectedRow();
+        String id = tabmode.getValueAt(row, 0).toString();
+        
+        int ok = JOptionPane.showConfirmDialog(null, " Apakah Anda Yakin Ingin\n"
+            + "Tolak Request Masuk?", "Request Masuk", JOptionPane.YES_NO_OPTION);
+        
+        if(ok == 0){
+            String sql = "UPDATE data_masuk SET status='declined' WHERE id='" + id + "'";
+            try{
+                java.sql.PreparedStatement stat = conn.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Request Masuk telah ditolak");
+                this.removeAll();
+                this.add(new RequestMasuk_());
+                this.repaint();
+                this.revalidate();
+            } catch(Exception error){
+                JOptionPane.showMessageDialog(null, "Request Masuk gagal ditolak! \n"+error);
+            }
+        }
+    }//GEN-LAST:event_tolakBtnActionPerformed
+
+    private void TableReqMasukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableReqMasukMouseClicked
+        int row = TableReqMasuk.getSelectedRow();
+        String status = tabmode.getValueAt(row, 6).toString();
+        System.out.println(status);
+        if("approved".equals(status) || "declined".equals(status)){
+            terimaBtn.setEnabled(false);
+            tolakBtn.setEnabled(false);
+        }else{
+            terimaBtn.setEnabled(true);
+            tolakBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_TableReqMasukMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentRequest;
@@ -205,5 +306,7 @@ public class RequestMasuk_ extends javax.swing.JPanel {
     private javax.swing.JTable TableReqMasuk;
     private javax.swing.JLabel Title;
     private javax.swing.JTextField searchInput;
+    private javax.swing.JButton terimaBtn;
+    private javax.swing.JButton tolakBtn;
     // End of variables declaration//GEN-END:variables
 }
