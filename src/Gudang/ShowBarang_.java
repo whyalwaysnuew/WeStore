@@ -99,8 +99,6 @@ public class ShowBarang_ extends javax.swing.JPanel {
         ScrollShow = new javax.swing.JScrollPane();
         TableShow = new javax.swing.JTable();
         Title = new javax.swing.JLabel();
-        editBtn = new javax.swing.JButton();
-        addBtn = new javax.swing.JButton();
         searchInput = new javax.swing.JTextField();
 
         setLayout(new java.awt.CardLayout());
@@ -124,14 +122,6 @@ public class ShowBarang_ extends javax.swing.JPanel {
 
         Title.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         Title.setText("Data Barang");
-
-        editBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_example_20px.png"))); // NOI18N
-        editBtn.setText("Edit Data");
-
-        addBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_add_new_20px.png"))); // NOI18N
-        addBtn.setText("Tambah Data");
 
         searchInput.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         searchInput.setText("Cari Barang...");
@@ -169,12 +159,9 @@ public class ShowBarang_ extends javax.swing.JPanel {
                     .addGroup(ContentShowLayout.createSequentialGroup()
                         .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ContentShowLayout.createSequentialGroup()
-                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(editBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ScrollShow))
+                            .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         ContentShowLayout.setVerticalGroup(
@@ -183,12 +170,9 @@ public class ShowBarang_ extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(Title)
                 .addGap(18, 18, 18)
-                .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(ScrollShow, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                 .addGap(73, 73, 73))
         );
 
@@ -227,8 +211,6 @@ public class ShowBarang_ extends javax.swing.JPanel {
     private javax.swing.JScrollPane ScrollShow;
     private javax.swing.JTable TableShow;
     private javax.swing.JLabel Title;
-    private javax.swing.JButton addBtn;
-    private javax.swing.JButton editBtn;
     private javax.swing.JTextField searchInput;
     // End of variables declaration//GEN-END:variables
 }

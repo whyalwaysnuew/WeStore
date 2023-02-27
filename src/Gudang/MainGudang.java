@@ -186,7 +186,15 @@ public class MainGudang extends javax.swing.JFrame {
        });
        Menu menuRequestKeluar = new Menu(null, true, iconRequestKeluar, "Request Keluar", null);
 //       
-       Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", null);
+       Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new Content());
+                Content.repaint();
+                Content.revalidate();
+           }
+       });
        Menu menuBarang = new Menu(iconBarang, false, null, "Barang", new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent e){
