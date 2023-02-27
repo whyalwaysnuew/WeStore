@@ -79,7 +79,7 @@ public class RequestMasuk_ extends javax.swing.JPanel {
                 String status = hasil.getString("status");
                 String keterangan = hasil.getString("keterangan");
                 String tanggal = hasil.getString("created_at");
-                String[] data = {"","REQ"+id, kode_barang, nama,jumlah,kategori, status, keterangan, tanggal};
+                String[] data = {"",id, kode_barang, nama,jumlah,kategori, status, keterangan, tanggal};
                 tabmode.addRow(data);
                 noTable();
             }
@@ -269,12 +269,11 @@ public class RequestMasuk_ extends javax.swing.JPanel {
                     String databarang_id = databarang.getString("id");
                     String databarang_jumlah = databarang.getString("jumlah");
                     
-                    System.out.println(requestmasuk_kode);
-                    System.out.println(databarang_id);
                         if(requestmasuk_kode.equals(databarang_id)){
                             java.sql.Statement update = conn.createStatement();
-                            
-                            String total = databarang_jumlah + requestmasuk_jumlah;
+                            int jumlah_masuk = Integer.valueOf(requestmasuk_jumlah);
+                            int jumlah_barang = Integer.valueOf(databarang_jumlah);
+                            int total = jumlah_masuk + jumlah_barang;
                             String updatequery = "UPDATE data_barang SET jumlah='"+total+"' WHERE id='" + requestmasuk_kode + "'";
                             try{
                                 update.executeUpdate(updatequery);
@@ -290,11 +289,11 @@ public class RequestMasuk_ extends javax.swing.JPanel {
                                 insert.executeUpdate(sql);
                                 JOptionPane.showMessageDialog(null, "Berhasil Input Data Barang " +requestmasuk_kode);
                                 JOptionPane.showMessageDialog(null, "Request Masuk "+ requestmasuk_kode +" telah diterima");
+                                databarang.close();
                             } catch(Exception error){
-                                JOptionPane.showMessageDialog(null, "Gagal Input Data Barang " +requestmasuk_kode+ " \n"+error);
+                                //                                
                             }
                         }
-                    databarang.close();
                 }
             } catch(Exception error){
                 //                    

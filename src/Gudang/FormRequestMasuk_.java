@@ -326,13 +326,6 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
             String date = String.valueOf(tanggalInput.getDate());
             String keterangan = keteranganInput.getText();
             
-            System.out.println(kode);
-            System.out.println(nama);
-            System.out.println(jumlah);
-            System.out.println(kategori);
-            System.out.println(status);
-            System.out.println(keterangan);
-            
             java.sql.Statement stat = conn.createStatement();
             String sql = "INSERT INTO data_masuk (kode_barang,nama_barang,jumlah,kategori,status,keterangan,created_at)  VALUES('"
                     +kode+"','"

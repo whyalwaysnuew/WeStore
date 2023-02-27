@@ -58,7 +58,7 @@ public class RequestKeluar_ extends javax.swing.JPanel {
 //                } else{
 //                    setForeground(new Color(0,0,153));
 //                }
-                String[] data = {"","REQ"+id, kode_barang, nama,jumlah,kategori, status, keterangan, timestamp};
+                String[] data = {"",id, kode_barang, nama,jumlah,kategori, status, keterangan, timestamp};
                 tabmode.addRow(data);
                 noTable();
             }
@@ -94,7 +94,7 @@ public class RequestKeluar_ extends javax.swing.JPanel {
 //                } else{
 //                    setForeground(new Color(0,0,153));
 //                }
-                String[] data = {"","REQ"+id, kode_barang, nama,jumlah,kategori, status, keterangan, tanggal};
+                String[] data = {"",id, kode_barang, nama,jumlah,kategori, status, keterangan, tanggal};
                 tabmode.addRow(data);
                 noTable();
             }
@@ -257,24 +257,59 @@ public class RequestKeluar_ extends javax.swing.JPanel {
     private void terimaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terimaBtnActionPerformed
         int row = TableReqKeluar.getSelectedRow();
         String id = tabmode.getValueAt(row, 0).toString();
+        String requestkeluar_kode = tabmode.getValueAt(row, 2).toString();
+        String requestkeluar_jumlah = tabmode.getValueAt(row, 4).toString();
         
         int ok = JOptionPane.showConfirmDialog(null, " Apakah Anda Yakin Ingin "
             + "Terima Request Keluar?", "Request Keluar", JOptionPane.YES_NO_OPTION);
         
         if(ok == 0){
+            String queryBarang = "SELECT id, jumlah FROM data_barang";
             String sql = "UPDATE data_keluar SET status='approved' WHERE id='" + id + "'";
+            
             try{
-                java.sql.PreparedStatement stat = conn.prepareStatement(sql);
-                stat.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Request Keluar telah diterima");
-                this.removeAll();
-                this.add(new RequestKeluar_());
-                this.repaint();
-                this.revalidate();
+                java.sql.Statement detail = conn.createStatement();
+                ResultSet databarang = detail.executeQuery(queryBarang);
+                
+                while(databarang.next()){
+                    String databarang_id = databarang.getString("id");
+                    String databarang_jumlah = databarang.getString("jumlah");
+                    if(databarang_id.equals(requestkeluar_kode)){
+                        java.sql.Statement update = conn.createStatement();
+                        int jumlah_keluar = Integer.valueOf(requestkeluar_jumlah);
+                        int jumlah_barang = Integer.valueOf(databarang_jumlah);
+                        if(jumlah_barang >= jumlah_keluar){
+                            int total = jumlah_barang - jumlah_keluar;
+                            String updatequery = "UPDATE data_barang SET jumlah='" + total + "' WHERE id='" + requestkeluar_kode + "'";
+
+                            System.out.println(jumlah_barang);
+                            System.out.println(jumlah_keluar);
+
+                            try{
+                                update.executeUpdate(updatequery);
+                                update.executeUpdate(sql);
+
+                                JOptionPane.showMessageDialog(null, "Data Barang " +requestkeluar_kode+ " telah diperbarui!");
+                                JOptionPane.showMessageDialog(null, "Request Keluar "+ requestkeluar_kode +" telah diterima");
+                                databarang.close();
+                            } catch(Exception error){
+                                JOptionPane.showMessageDialog(null, "Data Barang " +requestkeluar_kode+ " gagal diperbarui! \n"+error);
+                            }
+                        } else{
+                            JOptionPane.showMessageDialog(null, "Request Keluar "+ requestkeluar_kode +" Gagal! \n Jumlah Permintaan melebihi Stok Barang! ");
+                        }
+                    }else{
+                        
+                    }
+                }
             } catch(Exception error){
-                JOptionPane.showMessageDialog(null, "Request Keluar gagal diterima! \n"+error);
+                //                
             }
         }
+        this.removeAll();
+        this.add(new RequestKeluar_());
+        this.repaint();
+        this.revalidate();
     }//GEN-LAST:event_terimaBtnActionPerformed
 
     private void tolakBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tolakBtnActionPerformed
