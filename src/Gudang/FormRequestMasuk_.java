@@ -6,6 +6,7 @@ package Gudang;
 
 import Database.Koneksi;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 /**
  *
@@ -15,6 +16,9 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
     
     public final Connection conn = new Koneksi().connect();
 
+    java.sql.PreparedStatement getKat;
+    ResultSet dataKategori;
+    
     public void clear(){
         kodeInput.setText(null);
         namaInput.setText(null);
@@ -23,12 +27,25 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
         tanggalInput.setDate(null);
     }
 
+    public void dataKategori(){
+        String sql = "SELECT nama FROM kategori ORDER BY nama ASC";
+        try{
+            getKat = conn.prepareStatement(sql);
+            dataKategori = getKat.executeQuery();
+            while(dataKategori.next()){
+                kategoriInput.addItem(dataKategori.getString("nama"));
+            }
+        } catch(Exception error){
+            JOptionPane.showMessageDialog(null, "Data Gagal diambil!\n"+error);
+        }
+    }
+    
     /**
      * Creates new form RequestMasuk_
      */
     public FormRequestMasuk_() {
         initComponents();
-        
+        dataKategori();
     }
 
     /**
@@ -167,7 +184,6 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
         kategoriLabel.setText("Kategori");
 
         kategoriInput.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        kategoriInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Atribut", "Kendaraan", "Alat", "Pelengkap" }));
 
         javax.swing.GroupLayout PanelKategoriLayout = new javax.swing.GroupLayout(PanelKategori);
         PanelKategori.setLayout(PanelKategoriLayout);
@@ -302,13 +318,11 @@ public class FormRequestMasuk_ extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PanelKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PanelTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
-                    .addGroup(ContentRequestLayout.createSequentialGroup()
-                        .addComponent(PanelJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(PanelTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(PanelJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         PanelRequest.add(ContentRequest, "card2");

@@ -165,16 +165,24 @@ public class MainGudang extends javax.swing.JFrame {
        ImageIcon iconDashboard = new ImageIcon(getClass().getResource("/icon/icons8_health_data_24px.png"));
        
        ImageIcon iconBarang = new ImageIcon(getClass().getResource("/icon/icons8_box_24px.png"));
-       ImageIcon iconBarangMasuk = new ImageIcon(getClass().getResource("/icon/icons8_packing_24px.png"));
-       ImageIcon iconBarangKeluar = new ImageIcon(getClass().getResource("/icon/icons8_unpacking_24px.png"));
        
        ImageIcon iconRequest = new ImageIcon(getClass().getResource("/icon/icons8_data_transfer_24px.png"));
+       ImageIcon iconRequestShow = new ImageIcon(getClass().getResource("/icon/icons8_list_24px.png"));
        ImageIcon iconRequestMasuk = new ImageIcon(getClass().getResource("/icon/icons8_Circled_Down_Left_Arrow_24px.png"));
        ImageIcon iconRequestKeluar = new ImageIcon(getClass().getResource("/icon/icons8_Circled_Up_Right_24px.png"));
        
        ImageIcon iconLaporan = new ImageIcon(getClass().getResource("/icon/icons8_google_docs_24px.png"));
        ImageIcon iconLogout = new ImageIcon(getClass().getResource("/icon/icons8_Logout_24px.png"));
        
+       Menu menuRequestShow = new Menu(null, true, iconRequestShow, "Data Request", new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new ShowRequest_());
+                Content.repaint();
+                Content.revalidate();
+           }
+       });
        Menu menuRequestMasuk = new Menu(null, true, iconRequestMasuk, "Request Masuk", new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent e){
@@ -184,7 +192,15 @@ public class MainGudang extends javax.swing.JFrame {
                 Content.revalidate();
            }
        });
-       Menu menuRequestKeluar = new Menu(null, true, iconRequestKeluar, "Request Keluar", null);
+       Menu menuRequestKeluar = new Menu(null, true, iconRequestKeluar, "Request Keluar",  new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new FormRequestKeluar_());
+                Content.repaint();
+                Content.revalidate();
+           }
+       });
 //       
        Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", new ActionListener(){
            @Override
@@ -204,7 +220,7 @@ public class MainGudang extends javax.swing.JFrame {
                 Content.revalidate();
            }
        });
-       Menu menuRequest = new Menu(iconRequest, false, null, "Request", null, menuRequestMasuk, menuRequestKeluar);
+       Menu menuRequest = new Menu(iconRequest, false, null, "Request", null, menuRequestShow, menuRequestMasuk, menuRequestKeluar);
        Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
        Menu menuLogout = new Menu(iconLogout, false, null, "Logout", new ActionListener(){
            @Override
