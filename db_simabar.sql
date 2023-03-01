@@ -28,11 +28,12 @@ CREATE TABLE IF NOT EXISTS `data_barang` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_simabar.data_barang: ~0 rows (approximately)
+-- Dumping data for table db_simabar.data_barang: ~4 rows (approximately)
 INSERT INTO `data_barang` (`id`, `nama`, `jumlah`, `kategori`) VALUES
-	('BR0001', 'Helmet', 35, 'Atribut'),
-	('BR0002', 'Sepatu Boots', 22, 'Atribut'),
-	('BR0003', 'Tronton', 5, 'Kendaraan');
+	('BR0001', 'Rompi', 30, 'Atribut'),
+	('BR0002', 'Sepatu Boots', 5, 'Atribut'),
+	('BR1002', 'Baliho', 2, 'Alat'),
+	('JP1153', 'Jeep', 3, 'Kendaraan');
 
 -- Dumping structure for table db_simabar.data_keluar
 CREATE TABLE IF NOT EXISTS `data_keluar` (
@@ -43,11 +44,17 @@ CREATE TABLE IF NOT EXISTS `data_keluar` (
   `kategori` varchar(50) DEFAULT '',
   `status` char(50) DEFAULT NULL,
   `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_simabar.data_keluar: ~0 rows (approximately)
+-- Dumping data for table db_simabar.data_keluar: ~5 rows (approximately)
+INSERT INTO `data_keluar` (`id`, `kode_barang`, `nama_barang`, `jumlah`, `kategori`, `status`, `keterangan`, `created_at`) VALUES
+	(1, 'BR0002', 'Sepatu pantofel', 10, 'Atribut', 'waiting', 'vfvfv', '2023-02-27'),
+	(2, 'BR0001', 'Rompi Lapangan', 10, 'Atribut', 'approved', 'rtryry', '2023-02-27'),
+	(3, 'MR0023', 'Motor', 5, 'Kendaraan', 'declined', 'gggf', '2023-02-27'),
+	(4, 'BR0001', 'Rompi', 5, 'Atribut', 'approved', 'abcee', 'Wed Mar 01 00:00:00 ICT 2023'),
+	(5, 'JP1153', 'Jeep', 1, 'Kendaraan', 'waiting', 'www', 'Wed Feb 01 21:32:49 ICT 2023');
 
 -- Dumping structure for table db_simabar.data_masuk
 CREATE TABLE IF NOT EXISTS `data_masuk` (
@@ -58,15 +65,38 @@ CREATE TABLE IF NOT EXISTS `data_masuk` (
   `kategori` varchar(50) DEFAULT NULL,
   `status` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_simabar.data_masuk: ~3 rows (approximately)
+-- Dumping data for table db_simabar.data_masuk: ~9 rows (approximately)
 INSERT INTO `data_masuk` (`id`, `kode_barang`, `nama_barang`, `jumlah`, `kategori`, `status`, `keterangan`, `created_at`) VALUES
-	(1, 'BR1002', 'Baliho', 2, 'Alat', 'waiting', 'Spanduk Iklan', '2023-02-25 03:40:57'),
-	(2, 'BR3001', 'Helmet Baja', 23, 'Atribut', 'waiting', 'afafafa afasd', '2023-02-24 17:00:00'),
-	(3, 'JP1153', 'Jeep', 1, 'Kendaraan', 'waiting', 'abcdef', '2023-02-24 17:00:00');
+	(1, 'BR1002', 'Baliho', 2, 'Alat', 'approved', 'Spanduk Iklan', '2023-02-25 10:40:57'),
+	(2, 'BR3001', 'Helmet Baja', 23, 'Atribut', 'waiting', 'afafafa afasd', '2023-02-25 00:00:00'),
+	(3, 'JP1153', 'Jeep', 1, 'Kendaraan', 'approved', 'abcdef', '2023-02-25 00:00:00'),
+	(4, 'RM2903', 'Rompi', 15, 'Atribut', 'declined', 'abdddcd', 'Tue Feb 21 09:32:58 ICT 2023'),
+	(5, 'BR0001', 'Rompi', 10, 'Atribut', 'waiting', 'afafaf', 'Mon Feb 27 10:10:11 ICT 2023'),
+	(6, 'MR0026', 'Motor Aerox', 10, 'Kendaraan', 'waiting', 'eer rr r r', 'Tue Feb 28 00:00:00 ICT 2023'),
+	(7, 'MB2401', 'Mobil Fuso', 5, 'Kendaraan', 'waiting', 'wewe ttr', 'Tue Feb 28 00:37:21 ICT 2023'),
+	(8, 'SE0213', 'Sekop', 5, 'Atribut', 'waiting', 'fff', 'Wed Feb 01 21:33:43 ICT 2023'),
+	(9, 'PK2201', 'Kotak PPPK', 4, 'Kesehatan', 'waiting', 'fafaf', 'Thu Feb 02 21:48:43 ICT 2023');
+
+-- Dumping structure for table db_simabar.kategori
+CREATE TABLE IF NOT EXISTS `kategori` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(125) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table db_simabar.kategori: ~7 rows (approximately)
+INSERT INTO `kategori` (`id`, `nama`) VALUES
+	(1, 'Atribut'),
+	(2, 'Medis'),
+	(3, 'Berkas'),
+	(4, 'Suit'),
+	(5, 'Kesehatan'),
+	(6, 'Armor'),
+	(7, 'Senjata');
 
 -- Dumping structure for table db_simabar.users
 CREATE TABLE IF NOT EXISTS `users` (
