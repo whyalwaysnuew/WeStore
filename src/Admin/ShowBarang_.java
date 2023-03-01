@@ -7,8 +7,17 @@ package Admin;
 import Database.Koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -114,6 +123,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
         addBtn = new javax.swing.JButton();
         searchInput = new javax.swing.JTextField();
         hapusBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -186,6 +196,17 @@ public class ShowBarang_ extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(204, 102, 0));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_print_20px_1.png"))); // NOI18N
+        jButton1.setText("Cetak");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ContentShowLayout = new javax.swing.GroupLayout(ContentShow);
         ContentShow.setLayout(ContentShowLayout);
         ContentShowLayout.setHorizontalGroup(
@@ -204,7 +225,9 @@ public class ShowBarang_ extends javax.swing.JPanel {
                                 .addComponent(editBtn)
                                 .addGap(18, 18, 18)
                                 .addComponent(hapusBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(ScrollShow))
                         .addContainerGap())))
@@ -219,7 +242,8 @@ public class ShowBarang_ extends javax.swing.JPanel {
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hapusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hapusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ScrollShow, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
@@ -279,6 +303,21 @@ public class ShowBarang_ extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_hapusBtnActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JasperReport laporan;
+        
+        String path = ".\\src\\Laporan\\DataBarang.jasper";
+        try {
+            laporan = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint cetak = JasperFillManager.fillReport(path, null, conn);
+            JasperViewer cetakViewer = new JasperViewer(cetak, false);
+            cetakViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            cetakViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(ShowBarang_.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentShow;
@@ -289,6 +328,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
     private javax.swing.JButton addBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JButton hapusBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JTextField searchInput;
     // End of variables declaration//GEN-END:variables
 }

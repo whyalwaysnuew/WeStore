@@ -163,6 +163,7 @@ public class MainAdmin extends javax.swing.JFrame {
 
     private void execute() {
        ImageIcon iconDashboard = new ImageIcon(getClass().getResource("/icon/icons8_health_data_24px.png"));
+       ImageIcon iconKategori = new ImageIcon(getClass().getResource("/icon/icons8_medium_priority_24px.png"));
        ImageIcon iconBarang = new ImageIcon(getClass().getResource("/icon/icons8_box_24px.png"));
        ImageIcon iconBarangMasuk = new ImageIcon(getClass().getResource("/icon/icons8_packing_24px.png"));
        ImageIcon iconBarangKeluar = new ImageIcon(getClass().getResource("/icon/icons8_unpacking_24px.png"));
@@ -207,9 +208,17 @@ public class MainAdmin extends javax.swing.JFrame {
        });
        
        Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", null);
+       Menu menuKategori = new Menu(iconKategori, false, null, "Kategori", new ActionListener(){
+           @Override
+            public void actionPerformed(ActionEvent e){
+                Content.removeAll();
+                Content.add(new Kategori_());
+                Content.repaint();
+                Content.revalidate();
+            }
+       });
        Menu menuBarang = new Menu(iconBarang, false, null, "Barang", null,menuBarangShow, menuBarangMasuk, menuBarangKeluar);
        Menu menuRequest = new Menu(iconRequest, false, null, "Data Request", null, menuRequestMasuk, menuRequestKeluar);
-       Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
        Menu menuLogout = new Menu(iconLogout, false, null, "Logout", new ActionListener(){
            @Override
             public void actionPerformed(ActionEvent e){
@@ -217,7 +226,7 @@ public class MainAdmin extends javax.swing.JFrame {
             }
        });
        
-       addMenu(menuDashboard, menuBarang, menuRequest, menuLaporan, menuLogout);
+       addMenu(menuDashboard, menuKategori, menuBarang, menuRequest, menuLogout);
     }
     
     private void addMenu(Menu... menu){

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c067f03-701a-437e-bed0-af57b757b0b8">
+	<property name="ireport.zoom" value="1.9487171000000016"/>
+	<property name="ireport.x" value="337"/>
+	<property name="ireport.y" value="136"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     data_barang.`id` AS data_barang_id,
+     data_barang.`nama` AS data_barang_nama,
+     data_barang.`jumlah` AS data_barang_jumlah,
+     data_barang.`kategori` AS data_barang_kategori
+FROM
+     `data_barang` data_barang]]>
+	</queryString>
+	<field name="data_barang_id" class="java.lang.String"/>
+	<field name="data_barang_nama" class="java.lang.String"/>
+	<field name="data_barang_jumlah" class="java.lang.Long"/>
+	<field name="data_barang_kategori" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="144" y="0" width="411" height="28" uuid="cec8f22c-45c5-425b-8944-9c92a5446581"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gudang Achmad Faisal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="58" width="411" height="21" uuid="f27d1522-8fc5-4b44-bc9e-0bbbb4f962f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jalan KH Ahmad Dahlan, Cirendeu, Ciputat - Kota Tangerang Selatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="28" width="411" height="30" uuid="010bd006-8312-417b-a28c-bf7fcfe9abec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Universitas Muhammadiyah Jakarta]]></text>
+			</staticText>
+			<image>
+				<reportElement x="37" y="3" width="75" height="75" uuid="ec972e84-d983-47d3-8a9d-c255d5249286"/>
+				<imageExpression><![CDATA["D:\\Joki\\WeStore\\src\\images\\umj.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="28" width="555" height="33" uuid="27296462-e1d6-47be-b67f-0a78a35427bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Laporan Data Barang]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="17" width="555" height="1" uuid="443a01e1-2530-4a52-8782-ff6fad5c0ce9"/>
+			</line>
+			<staticText>
+				<reportElement x="388" y="66" width="46" height="20" uuid="e02588d6-f22c-42b2-aeaa-89c75bfa33f2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="434" y="66" width="111" height="20" uuid="14be2663-f899-4d42-b56d-609cf5bf8bef"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="88" height="20" uuid="427c65ab-7668-49e3-95d1-03d384e7ac9f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="88" y="0" width="245" height="20" uuid="fac69a15-b6b6-4ab5-993d-4601f72d97e2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="333" y="0" width="131" height="20" uuid="c4aa28f1-7339-44ba-be25-97d6dda562dd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="464" y="0" width="91" height="20" uuid="9349230b-9f9b-4671-a5db-7e4cc0d67f51"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="88" height="20" uuid="1c02f13f-b8c3-45cb-8e84-7d73e4dc3a3c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="0" width="245" height="20" uuid="cd23418a-5b65-4049-99e6-69767cc92c8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="131" height="20" uuid="96caffc5-d149-4e25-808a-db69b7d8f950"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kategori]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="0" width="72" height="20" uuid="203c7931-acc8-452a-9014-d4482b919079"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jumlah]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="88" height="20" uuid="27da6a5b-907d-486f-bb5b-c6ed2d18ddd0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="88" y="0" width="245" height="20" uuid="2186ef4a-3745-44e1-86e3-69084ca06a94"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="333" y="0" width="131" height="20" uuid="97cc426d-d493-4067-8d2e-a2c3e4e4d8ac"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="464" y="0" width="91" height="20" uuid="30d02e8a-e003-4aa8-89b8-1cb0f6be4658"/>
+			</rectangle>
+			<textField>
+				<reportElement x="13" y="0" width="62" height="20" uuid="5909b317-7244-4cd7-b0ee-7bb1a0ac1933"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_barang_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="0" width="217" height="20" uuid="0612b834-e5a8-4001-8338-81a7b541ef71"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_barang_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="348" y="0" width="97" height="20" uuid="a166e258-17e2-43df-90d9-60ebe417dc25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_barang_kategori}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="0" width="54" height="20" uuid="adc87d13-5c5f-4384-b810-4e65ffa45e9a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_barang_jumlah}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="434" y="6" width="78" height="16" uuid="4a924f7d-9f76-4f8d-bd60-e5e7d370aaf3"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Mengetahui,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="22" width="57" height="20" uuid="f9b8be85-048d-44a1-99be-61e67a64d1bc"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Direktur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="94" width="162" height="16" uuid="702a1c06-537d-444a-9a1b-6c126574322a"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Achmad Faisal]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
