@@ -68,6 +68,33 @@ public class FormRequestKeluar_ extends javax.swing.JPanel {
         }
     }
 
+    public void request(){
+        try{
+            String kode = kodeInput.getText();
+            String nama = namaInput.getText();
+            String jumlah = jumlahInput.getText();
+            String kategori = kategoriInput.getText();
+            String status = "waiting";
+            String date = String.valueOf(tanggalInput.getDate());
+            String keterangan = keteranganInput.getText();
+            
+            java.sql.Statement stat = conn.createStatement();
+            String sql = "INSERT INTO data_keluar (kode_barang,nama_barang,jumlah,kategori,status,keterangan,created_at)  VALUES('"
+                    +kode+"','"
+                    +nama+"','"
+                    +jumlah+"','"
+                    +kategori+"','"
+                    +status+"','"
+                    +keterangan+"','"
+                    +date+"');";
+            stat.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Data Berhasil diSubmit!");
+            clear();
+        } catch(Exception error){
+            JOptionPane.showMessageDialog(null, "Gagal Submit!\n"+error);
+        }
+    }
+    
     /**
      * Creates new form RequestMasuk_
      */
@@ -421,29 +448,10 @@ public class FormRequestKeluar_ extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        try{
-            String kode = kodeInput.getText();
-            String nama = namaInput.getText();
-            String jumlah = jumlahInput.getText();
-            String kategori = kategoriInput.getText();
-            String status = "waiting";
-            String date = String.valueOf(tanggalInput.getDate());
-            String keterangan = keteranganInput.getText();
-            
-            java.sql.Statement stat = conn.createStatement();
-            String sql = "INSERT INTO data_keluar (kode_barang,nama_barang,jumlah,kategori,status,keterangan,created_at)  VALUES('"
-                    +kode+"','"
-                    +nama+"','"
-                    +jumlah+"','"
-                    +kategori+"','"
-                    +status+"','"
-                    +keterangan+"','"
-                    +date+"');";
-            stat.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Data Berhasil diSubmit!");
-            clear();
-        } catch(Exception error){
-            JOptionPane.showMessageDialog(null, "Gagal Submit!\n"+error);
+        if(namaInput.getText().equals("") && kodeInput.getText().equals("") && kategoriInput.getText().equals("") && jumlahInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Kolom Input Tidak Boleh Kosong!\nPastikan Semua Kolom Input Sudah Terisi!");
+        }else{
+            request();
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 

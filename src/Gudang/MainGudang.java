@@ -163,16 +163,13 @@ public class MainGudang extends javax.swing.JFrame {
 
     private void execute() {
        ImageIcon iconDashboard = new ImageIcon(getClass().getResource("/icon/icons8_health_data_24px.png"));
-       
        ImageIcon iconBarang = new ImageIcon(getClass().getResource("/icon/icons8_box_24px.png"));
-       
        ImageIcon iconRequest = new ImageIcon(getClass().getResource("/icon/icons8_data_transfer_24px.png"));
        ImageIcon iconRequestShow = new ImageIcon(getClass().getResource("/icon/icons8_list_24px.png"));
        ImageIcon iconRequestMasuk = new ImageIcon(getClass().getResource("/icon/icons8_Circled_Down_Left_Arrow_24px.png"));
        ImageIcon iconRequestKeluar = new ImageIcon(getClass().getResource("/icon/icons8_Circled_Up_Right_24px.png"));
-       
-       ImageIcon iconLaporan = new ImageIcon(getClass().getResource("/icon/icons8_google_docs_24px.png"));
        ImageIcon iconLogout = new ImageIcon(getClass().getResource("/icon/icons8_Logout_24px.png"));
+       ImageIcon iconGudang = new ImageIcon(getClass().getResource("/icon/icons8_staff_24px.png"));
        
        Menu menuRequestShow = new Menu(null, true, iconRequestShow, "Data Request", new ActionListener(){
            @Override
@@ -201,7 +198,7 @@ public class MainGudang extends javax.swing.JFrame {
                 Content.revalidate();
            }
        });
-//       
+       Menu menuGudang = new Menu(iconGudang, false, null, "Pengurus Gudang", null);
        Menu menuDashboard = new Menu(iconDashboard, false, null, "Dashboard", new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent e){
@@ -221,7 +218,6 @@ public class MainGudang extends javax.swing.JFrame {
            }
        });
        Menu menuRequest = new Menu(iconRequest, false, null, "Request", null, menuRequestShow, menuRequestMasuk, menuRequestKeluar);
-       Menu menuLaporan = new Menu(iconLaporan, false, null, "Laporan", null);
        Menu menuLogout = new Menu(iconLogout, false, null, "Logout", new ActionListener(){
            @Override
             public void actionPerformed(ActionEvent e){
@@ -229,7 +225,7 @@ public class MainGudang extends javax.swing.JFrame {
             }
        });
        
-       addMenu(menuDashboard, menuBarang, menuRequest, menuLaporan, menuLogout);
+       addMenu(menuGudang, menuDashboard, menuBarang, menuRequest, menuLogout);
     }
     
     private void addMenu(Menu... menu){

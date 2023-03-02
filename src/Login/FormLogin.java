@@ -50,17 +50,17 @@ public class FormLogin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         closeBtn = new javax.swing.JLabel();
-        minBtn = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         usernameInput = new javax.swing.JTextField();
         passwordInput = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(54, 55, 85), 4));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -81,29 +81,22 @@ public class FormLogin extends javax.swing.JFrame {
         });
         jPanel1.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
 
-        minBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_negative_30px.png"))); // NOI18N
-        minBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minBtnMouseClicked(evt);
-            }
-        });
-        jPanel1.add(minBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
-
         loginBtn.setBackground(new java.awt.Color(51, 102, 255));
+        loginBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
         loginBtn.setToolTipText("");
-        loginBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        loginBtn.setBorder(null);
         loginBtn.setBorderPainted(false);
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 200, 30));
+        jPanel1.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 200, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_secure_120px.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_warehouse_120px.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         usernameInput.setBackground(new java.awt.Color(204, 204, 204));
         usernameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -123,7 +116,7 @@ public class FormLogin extends javax.swing.JFrame {
                 usernameInputActionPerformed(evt);
             }
         });
-        jPanel1.add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 200, 28));
+        jPanel1.add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 200, 28));
 
         passwordInput.setBackground(new java.awt.Color(204, 204, 204));
         passwordInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -143,7 +136,13 @@ public class FormLogin extends javax.swing.JFrame {
                 passwordInputActionPerformed(evt);
             }
         });
-        jPanel1.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 200, 30));
+        jPanel1.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 200, 30));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(54, 55, 85));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("MASUK GUDANG FAISAL");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 490, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,7 +193,7 @@ public class FormLogin extends javax.swing.JFrame {
                             admin.setVisible(true);
                             this.dispose();
                         } else if(rs.getString("level").equals("Gudang")){
-                            JOptionPane.showMessageDialog(null, "Selamat Datang Gudang!");
+                            JOptionPane.showMessageDialog(null, "Selamat Datang Pengurus Gudang!");
                             gudang = new MainGudang();
                             gudang.setVisible(true);
                             this.dispose();
@@ -211,10 +210,6 @@ public class FormLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "404 Something Wrong!");
         }
     }//GEN-LAST:event_loginBtnActionPerformed
-
-    private void minBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_minBtnMouseClicked
 
     private void usernameInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameInputFocusGained
         String user = usernameInput.getText();
@@ -287,9 +282,9 @@ public class FormLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel closeBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
-    private javax.swing.JLabel minBtn;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables

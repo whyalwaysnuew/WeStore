@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c067f03-701a-437e-bed0-af57b757b0b8">
-	<property name="ireport.zoom" value="1.9487171000000016"/>
-	<property name="ireport.x" value="337"/>
-	<property name="ireport.y" value="136"/>
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      data_barang.`id` AS data_barang_id,
@@ -33,18 +33,18 @@ FROM
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Jalan KH Ahmad Dahlan, Cirendeu, Ciputat - Kota Tangerang Selatan]]></text>
+				<text><![CDATA[Jalan Surya Kencana No.1, Pamulang, Kota Tangerang Selatan, Banten]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="144" y="28" width="411" height="30" uuid="010bd006-8312-417b-a28c-bf7fcfe9abec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Universitas Muhammadiyah Jakarta]]></text>
+				<text><![CDATA[Universitas Pamulang]]></text>
 			</staticText>
 			<image>
-				<reportElement x="37" y="3" width="75" height="75" uuid="ec972e84-d983-47d3-8a9d-c255d5249286"/>
-				<imageExpression><![CDATA["D:\\Joki\\WeStore\\src\\images\\umj.png"]]></imageExpression>
+				<reportElement x="34" y="0" width="79" height="79" uuid="07a1f861-d598-4e2c-9f4a-6e6529b2c423"/>
+				<imageExpression><![CDATA["D:\\Joki\\WeStore\\src\\images\\unpam.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -61,11 +61,11 @@ FROM
 				<reportElement x="0" y="17" width="555" height="1" uuid="443a01e1-2530-4a52-8782-ff6fad5c0ce9"/>
 			</line>
 			<staticText>
-				<reportElement x="388" y="66" width="46" height="20" uuid="e02588d6-f22c-42b2-aeaa-89c75bfa33f2"/>
+				<reportElement x="367" y="66" width="67" height="20" uuid="e02588d6-f22c-42b2-aeaa-89c75bfa33f2"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Jakarta,]]></text>
+				<text><![CDATA[Tangerang,]]></text>
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="434" y="66" width="111" height="20" uuid="14be2663-f899-4d42-b56d-609cf5bf8bef"/>
@@ -182,7 +182,13 @@ FROM
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="34" width="555" height="20" forecolor="#999999" uuid="abccc3c4-f7f5-4410-b52c-eb46d49cdd7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Copyright Gudang Achmad Faisal 2023]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

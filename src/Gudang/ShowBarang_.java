@@ -7,7 +7,16 @@ package Gudang;
 import Database.Koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -100,7 +109,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
         TableShow = new javax.swing.JTable();
         Title = new javax.swing.JLabel();
         searchInput = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        cetakBtn = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -147,14 +156,14 @@ public class ShowBarang_ extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_print_20px_1.png"))); // NOI18N
-        jButton1.setText("Cetak Laporan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cetakBtn.setBackground(new java.awt.Color(0, 0, 102));
+        cetakBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cetakBtn.setForeground(new java.awt.Color(255, 255, 255));
+        cetakBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_print_20px_1.png"))); // NOI18N
+        cetakBtn.setText("Cetak Laporan");
+        cetakBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cetakBtnActionPerformed(evt);
             }
         });
 
@@ -172,7 +181,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
                         .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentShowLayout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(cetakBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
@@ -185,7 +194,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ContentShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                    .addComponent(cetakBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(ScrollShow, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                 .addGap(73, 73, 73))
@@ -219,9 +228,20 @@ public class ShowBarang_ extends javax.swing.JPanel {
         cariBarang(sqlPencarian);
     }//GEN-LAST:event_searchInputKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void cetakBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakBtnActionPerformed
+        JasperReport laporan;
+        
+        String path = ".\\src\\Laporan\\DataBarang.jasper";
+        try {
+            laporan = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint cetak = JasperFillManager.fillReport(path, null, conn);
+            JasperViewer cetakViewer = new JasperViewer(cetak, false);
+            cetakViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            cetakViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Admin.ShowBarang_.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cetakBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,7 +250,7 @@ public class ShowBarang_ extends javax.swing.JPanel {
     private javax.swing.JScrollPane ScrollShow;
     private javax.swing.JTable TableShow;
     private javax.swing.JLabel Title;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton cetakBtn;
     private javax.swing.JTextField searchInput;
     // End of variables declaration//GEN-END:variables
 }

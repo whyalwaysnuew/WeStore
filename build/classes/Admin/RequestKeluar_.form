@@ -43,7 +43,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ScrollRequest" alignment="0" pref="848" max="32767" attributes="0"/>
+                          <Component id="ScrollRequest" alignment="0" pref="844" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="Title" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -52,6 +52,8 @@
                               <Component id="terimaBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="tolakBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="cetakBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="searchInput" min="-2" pref="183" max="-2" attributes="0"/>
                           </Group>
@@ -66,10 +68,13 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="Title" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="terimaBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="tolakBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="searchInput" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="terimaBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="tolakBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="searchInput" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="cetakBtn" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="ScrollRequest" pref="339" max="32767" attributes="0"/>
@@ -108,7 +113,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="36" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Data Request Keluar"/>
+                <Property name="text" type="java.lang.String" value="Data Request Barang Keluar"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="searchInput">
@@ -162,6 +167,26 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tolakBtnActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="cetakBtn">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/icons8_print_20px_1.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cetak"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cetakBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

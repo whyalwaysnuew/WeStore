@@ -7,8 +7,17 @@ package Gudang;
 import Database.Koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author Nuew
@@ -167,6 +176,8 @@ public class ShowRequest_ extends javax.swing.JPanel {
         requestKeluar = new javax.swing.JLabel();
         requestMasuk = new javax.swing.JLabel();
         searchInput2 = new javax.swing.JTextField();
+        cetakBtnM = new javax.swing.JButton();
+        cetakBtnK = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -251,6 +262,28 @@ public class ShowRequest_ extends javax.swing.JPanel {
             }
         });
 
+        cetakBtnM.setBackground(new java.awt.Color(0, 102, 102));
+        cetakBtnM.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cetakBtnM.setForeground(new java.awt.Color(255, 255, 255));
+        cetakBtnM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_send_to_printer_16px.png"))); // NOI18N
+        cetakBtnM.setText("Cetak");
+        cetakBtnM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakBtnMActionPerformed(evt);
+            }
+        });
+
+        cetakBtnK.setBackground(new java.awt.Color(0, 102, 102));
+        cetakBtnK.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cetakBtnK.setForeground(new java.awt.Color(255, 255, 255));
+        cetakBtnK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_send_to_printer_16px.png"))); // NOI18N
+        cetakBtnK.setText("Cetak");
+        cetakBtnK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakBtnKActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ContentRequestLayout = new javax.swing.GroupLayout(ContentRequest);
         ContentRequest.setLayout(ContentRequestLayout);
         ContentRequestLayout.setHorizontalGroup(
@@ -258,19 +291,23 @@ public class ShowRequest_ extends javax.swing.JPanel {
             .addGroup(ContentRequestLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
-                    .addGroup(ContentRequestLayout.createSequentialGroup()
-                        .addComponent(requestMasuk)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ScrollRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
                     .addComponent(ScrollRequest2)
                     .addGroup(ContentRequestLayout.createSequentialGroup()
-                        .addComponent(Title)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(ContentRequestLayout.createSequentialGroup()
                         .addComponent(requestKeluar)
+                        .addGap(50, 50, 50)
+                        .addComponent(cetakBtnK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(searchInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ContentRequestLayout.createSequentialGroup()
+                        .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(ContentRequestLayout.createSequentialGroup()
+                                .addComponent(requestMasuk)
+                                .addGap(52, 52, 52)
+                                .addComponent(cetakBtnM))
+                            .addComponent(Title))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         ContentRequestLayout.setVerticalGroup(
@@ -283,15 +320,19 @@ public class ShowRequest_ extends javax.swing.JPanel {
                     .addGroup(ContentRequestLayout.createSequentialGroup()
                         .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(requestMasuk))
+                            .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(requestMasuk)
+                                .addComponent(cetakBtnM)))
                         .addGap(18, 18, 18)
                         .addComponent(ScrollRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(requestKeluar))
+                        .addGap(44, 44, 44)
+                        .addGroup(ContentRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(requestKeluar)
+                            .addComponent(cetakBtnK)))
                     .addComponent(searchInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ScrollRequest2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         PanelRequest.add(ContentRequest, "card2");
@@ -347,6 +388,36 @@ public class ShowRequest_ extends javax.swing.JPanel {
         cariRequest2(sqlPencarian);
     }//GEN-LAST:event_searchInput2KeyTyped
 
+    private void cetakBtnKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakBtnKActionPerformed
+        JasperReport laporan;
+        
+        String path = ".\\src\\Laporan\\DataKeluar.jasper";
+        try {
+            laporan = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint cetak = JasperFillManager.fillReport(path, null, conn);
+            JasperViewer cetakViewer = new JasperViewer(cetak, false);
+            cetakViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            cetakViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Admin.ShowBarang_.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cetakBtnKActionPerformed
+
+    private void cetakBtnMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakBtnMActionPerformed
+        JasperReport laporan;
+        
+        String path = ".\\src\\Laporan\\DataMasuk.jasper";
+        try {
+            laporan = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint cetak = JasperFillManager.fillReport(path, null, conn);
+            JasperViewer cetakViewer = new JasperViewer(cetak, false);
+            cetakViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            cetakViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Admin.ShowBarang_.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cetakBtnMActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentRequest;
@@ -356,6 +427,8 @@ public class ShowRequest_ extends javax.swing.JPanel {
     private javax.swing.JTable TableReqKeluar;
     private javax.swing.JTable TableReqMasuk;
     private javax.swing.JLabel Title;
+    private javax.swing.JButton cetakBtnK;
+    private javax.swing.JButton cetakBtnM;
     private javax.swing.JLabel requestKeluar;
     private javax.swing.JLabel requestMasuk;
     private javax.swing.JTextField searchInput;
